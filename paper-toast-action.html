@@ -29,6 +29,10 @@
         margin: 0 !important;
       }
     }
+    #button{
+      text-align: center;
+      margin: auto;
+    }
   </style>
   <paper-toast
     id="paperAlert"
@@ -41,7 +45,7 @@
     no-cancel-on-outside-click="{{noCancelOnOutsideClick}}"
     no-auto-focus="{{noAutoFocus}}"
   >
-  <paper-button id="button" on-click="close" class="yellow-button"></paper-button>
+  <paper-button id="button" on-click="close" class="yellow-button">Prova</paper-button>
   </paper-toast>
 
 </template>
@@ -90,6 +94,15 @@
         type: String,
         notify:true
       },
+      /**
+       * The text to display in the toast.
+       */
+      textButton: {
+        type: String,
+        notify:true,
+        value:"Close now!",
+        observer:"_changeTextButton"
+      },
 
       /**
        * Overridden from `IronOverlayBehavior`.
@@ -116,16 +129,18 @@
     close:function(){
       this.$.paperAlert.close();
     },
+    _changeTextButton:function(newtext,oldtext){
+      this.$.button.textContent = newtext;
+    },
     withButtonText:function(text){
-      this.$.button.innerText = text;
-      return this;
+      this.textButton = text;
     },
     withText:function(text){
       this.text = text;
       return this;
     },
     attached:function(){
-      this.$.button.innerText = "Close now!";
+      //this.$.button.innerText = "Close now!";
     }
 
 
