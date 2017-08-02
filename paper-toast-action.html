@@ -1,0 +1,135 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-toast/paper-toast.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<!--
+`paper-toast-action`
+
+
+@demo demo/index.html
+-->
+
+<dom-module id="paper-toast-action">
+  <template>
+    <style>
+    :host {
+      display: block;
+    }
+    .yellow-button{
+      float:right;
+      display: inline-block;
+      padding:0px;
+      color: #ffa51f;
+      text-transform: none !important;
+    }
+    @media only screen and (max-width: 500px) {
+      .fit-paperalert{
+        width: 100% !important;
+        min-width: 0 !important;
+        border-radius: 0 !important ;
+        margin: 0 !important;
+      }
+    }
+  </style>
+  <paper-toast
+    id="paperAlert"
+    class="fit-paperalert"
+    fit-into="{{fitInto}}"
+    horizontal-align="{{horizontalAlign}}"
+    vertical-align="{{verticalAlign}}"
+    duration="7000"
+    text="{{text}}"
+    no-cancel-on-outside-click="{{noCancelOnOutsideClick}}"
+    no-auto-focus="{{noAutoFocus}}"
+  >
+  <paper-button id="button" on-click="close" class="yellow-button"></paper-button>
+  </paper-toast>
+
+</template>
+
+<script>
+  Polymer({
+
+    is: 'paper-toast-action',
+
+    properties: {
+      /**
+       * The element to fit `this` into.
+       * Overridden from `Polymer.IronFitBehavior`.
+       */
+      fitInto: {
+        type: Object,
+        notify:true
+      },
+
+      /**
+       * The orientation against which to align the dropdown content
+       * horizontally relative to `positionTarget`.
+       * Overridden from `Polymer.IronFitBehavior`.
+       */
+      horizontalAlign: {
+        type: String,
+        notify:true
+      },
+
+      /**
+       * The orientation against which to align the dropdown content
+       * vertically relative to `positionTarget`.
+       * Overridden from `Polymer.IronFitBehavior`.
+       */
+      verticalAlign: {
+        type: String,
+        notify:true
+      },
+
+
+
+      /**
+       * The text to display in the toast.
+       */
+      text: {
+        type: String,
+        notify:true
+      },
+
+      /**
+       * Overridden from `IronOverlayBehavior`.
+       * Set to false to enable closing of the toast by clicking outside it.
+       */
+      noCancelOnOutsideClick: {
+        type: Boolean,
+        notify:true
+      },
+
+      /**
+       * Overridden from `IronOverlayBehavior`.
+       * Set to true to disable auto-focusing the toast or child nodes with
+       * the `autofocus` attribute` when the overlay is opened.
+       */
+      noAutoFocus: {
+        type: Boolean,
+        notify:true
+      }
+    },
+    open:function(){
+      this.$.paperAlert.open();
+    },
+    close:function(){
+      this.$.paperAlert.close();
+    },
+    withButtonText:function(text){
+      this.$.button.innerText = text;
+      return this;
+    },
+    withText:function(text){
+      this.text = text;
+      return this;
+    },
+    attached:function(){
+      this.$.button.innerText = "Close now!";
+    }
+
+
+
+    });
+  </script>
+</dom-module>
