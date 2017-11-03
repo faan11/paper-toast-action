@@ -128,6 +128,7 @@
     },
     close:function(){
       this.$.paperAlert.close();
+      this.fire("action");
     },
     _changeTextButton:function(newtext,oldtext){
       this.$.button.textContent = newtext;
